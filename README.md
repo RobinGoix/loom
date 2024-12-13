@@ -17,6 +17,13 @@ A pipeline for generating geographically accurate transit maps which appears to 
 
 Also see our web demos [here](https://loom.cs.uni-freiburg.de/), [here](https://loom.cs.uni-freiburg.de/global), and [here](https://octi.cs.uni-freiburg.de).
 
+
+-----
+On Windows, prefer using docker as cmake and gcc can be tricky to install and setup: https://docs.docker.com/desktop/setup/install/windows-install/
+(see last section)
+
+
+
 Requirements
 ------------
 
@@ -87,6 +94,10 @@ To render for example the orthoradial map from above, use a different base graph
 ```
 cat examples/stuttgart.json | loom | octi -b orthoradial | transitmap -l > stuttgart-orthorad.svg
 ```
+
+Loom Optimisation methods
+---------------
+Optimization method can be set with -m parameter. For large networks, default optimization method (comb) is slow and often crash without notifying. hillc method seems to be much more reliable and faster.
 
 Line graph extraction from GTFS
 -------------------------------

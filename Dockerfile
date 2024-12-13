@@ -19,9 +19,10 @@ RUN apt-get update \
        wget \
 	   g++ \
        git \
-    && update-ca-certificates \
-    && wget -q https://packages.gurobi.com/${GRB_SHORT_VERSION}/gurobi${GRB_VERSION}_linux64.tar.gz \
-    && tar -xf gurobi${GRB_VERSION}_linux64.tar.gz  \
+    && update-ca-certificates
+
+RUN wget --no-check-certificate https://packages.gurobi.com/9.1/gurobi9.1.2_linux64.tar.gz
+RUN tar -xf gurobi${GRB_VERSION}_linux64.tar.gz  \
     && rm -f gurobi${GRB_VERSION}_linux64.tar.gz \
     && mv -f gurobi* gurobi \
     && rm -rf gurobi/linux64/docs
@@ -34,7 +35,9 @@ RUN git clone --recurse-submodules https://github.com/ad-freiburg/loom /loom
 
 ENV GRB_LICENSE_FILE /gurobi/gurobi.lic
 
-RUN cd /loom && rm -rf build && mkdir build && cd build && cmake .. && make -j20 install
+RUN cd /loom && rm -rf build
+RUN cd /loom && mkdir build 
+RUN cd /loom/build && cmake .. && make install
 
 WORKDIR /
 
